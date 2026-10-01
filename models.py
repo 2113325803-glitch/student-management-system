@@ -10,7 +10,7 @@
 
 #=====================================数据校验逻辑======================================
 class StudentInfoSystem:
-    def __init__(self, name, age, sex, student_id):
+    def __init__(self, name, age, sex, student_id, id=None):
         # 校验1：名字不能为空
         if not name:
             raise ValueError("姓名不能为空")    #raise用于抛出异常，ValueError是异常类，表示值错误
@@ -18,7 +18,7 @@ class StudentInfoSystem:
         # 校验2：年龄必须是整数，且在合理范围内
         if age < 0 or age > 150:
             raise ValueError("年龄必须在 0 到 150 之间")
-
+        self.id = id
         self.name = name
         self.age = age
         self.sex = sex

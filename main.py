@@ -1,5 +1,5 @@
 import json
-from model import StudentInfoSystem
+from models import StudentInfoSystem
 from storage import load_students, save_students
 """"
 要求：学生信息管理系统，包含以下功能：
@@ -29,27 +29,7 @@ def show_menu():
 
 def main():
     #加载数据（文件不存在返回列表）
-    student_list = load_students("students.json")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    student_list = load_students()   #现在不能传"students.json"了，他现在是直接从数据库读取的
 
     #=============================启动初始化与数据加载-纯文本（CSV风格）==============
     # 启动时，尝试从文件加载数据
@@ -170,8 +150,10 @@ def main():
             #     #f是文件对象，dict_list是字典列表
             #     json.dump(dict_list, f, ensure_ascii=False, indent=4)
             # =========== 保存 JSON 数据（简化方法）=============
-            save_students(student_list, "students.json")
-            print("数据已保存，感谢使用，再见！")
+
+            #========把内存里面的学生列表保存到数据库（简化方法）=========
+            save_students(student_list)
+            print("数据已保存到数据库，感谢使用，再见！")
             break
 
 
