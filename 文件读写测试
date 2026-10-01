@@ -1,0 +1,9 @@
+temp_path:是pytest提供的内置fixture，用于生成临时目录，用于存放测试文件和数据。
+           这里的path表示对象，临时目录
+           该目录在测试结束后会自动删除，不会影响其他测试。
+            该目录的路径可以通过temp_path fixture获取。
+temp_path / "not_exist.json" = 临时目录下的 not_exist.json 文件
+/ 运算符是Python中的路径拼接运算符，用于连接两个路径。
+open：可以接受多种数据类型作为参数，包括字符串str、文件对象、二进制数据等。
+assert result == [] 含义是断言result变量的值是否等于空列表[]，如果断言失败，会抛出AssertionError异常。
+file_path: path表示临时目录下的not_exist.json 文件
