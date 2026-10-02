@@ -1,0 +1,47 @@
+------------->cursor.execute(
+    sql, (sql:是指要执行的SQL语句，包括SELECT(是查询语句)、INSERT（是插入语句）、UPDATE（是更新语句）、DELETE（是删除语句）等语句)
+    parms（可选，SQL参数，通常用元组或者字典传入，防止SQL注入攻击）
+    args
+    ）
+
+---------->pymysql.connect(**config)
+使用 PyMySQL 连接 MySQL 数据库的常见写法。    config 必须是一个字典{""}，包含数据库连接的参数，如 host、user、password、database 等。
+它的意思是：把一个字典 config 里的键值对，作为关键字参数传给 pymysql.connect()，从而建立数据库连接。
+前面的**表示字典解包，相当于把字典 config 的键值对，直接作为关键字参数传给 pymysql.connect()。这样可以避免在连接数据库时，写很多重复的参数。
+等价于
+pymysql.connect(
+    host="localhost",
+    user="root",
+    password="123456",
+    database="testdb"
+)
+
+--------->cursor.fetchall()
+执行查询语句后，使用 cursor.fetchall() 方法获取查询结果。
+它返回一个包含查询结果的元组列表，每个元组代表一行数据。
+等价于
+cursor.execute("SELECT * FROM users")
+results = cursor.fetchall()
+for result in results:
+    print(result)
+
+-------->cursor = conn.cursor()
+    conn用数据库连接对象 conn 创建一个新的游标对象，并赋值给变量 cursor
+    调用Conn.cursor()方法，返回一个新的游标对象，这个游标对象可以用来执行SQL语句，获取查询结果等操作。
+    连接对象 conn 负责“连上数据库”，游标对象 cursor 负责“执行 SQL、拿结果”，是数据库的子对象
+    conn 管连接和事务
+    cursor 管 SQL 和结果   可以有多个游标对象 他们可以共享一个数据库连接，但各自执行SQL，各自读取结果
+
+
+--------->游标对象的典型流程
+conn = pymysql.connect(...)   # 建立连接
+cursor = conn.cursor()        # 创建游标
+cursor.execute(...)           # 执行 SQL
+cursor.fetchall()             # 获取结果
+cursor.close()                # 关闭游标
+conn.close()                  # 关闭连接
+
+--------->conn.commit()
+提交当前事务，把这次事务里的数据库的修改真正写入数据库
+执行SQK语句后 必须要调用conn.commit()方法，否则修改不会写入数据库
+否则连接关闭时通常会回滚，数据就丢了
